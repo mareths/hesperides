@@ -23,7 +23,7 @@ public class FileUseCasesTest {
                 new DeployedModuleProfile(2, 200, 3),
                 new DeployedModuleProfile(28, 22, 1)
         );
-        List<AbstractPropertyView> modulePropertiesModels = genModulePropertiesModels(350);
+        List<AbstractPropertyView> propertiesModel = genPropertiesModel(350);
 
         DeployedModuleView firstDeployedModule = platform.getDeployedModules().get(0);
         assertNotNull(firstDeployedModule);
@@ -34,7 +34,7 @@ public class FileUseCasesTest {
                 platform,
                 firstDeployedModule.getModulePath(),
                 firstDeployedModule.getModuleKey(),
-                modulePropertiesModels,
+                propertiesModel,
                 firstInstance.getName(),
                 false
         );

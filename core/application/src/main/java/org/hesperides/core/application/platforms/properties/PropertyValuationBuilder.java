@@ -31,15 +31,15 @@ public class PropertyValuationBuilder {
      * les mots de passe et tenu compte des valeurs par défaut
      */
     public static PropertyVisitorsSequence buildFirstPropertyVisitorsSequence(DeployedModuleView deployedModule,
-                                                                              List<AbstractPropertyView> modulePropertiesModels,
+                                                                              List<AbstractPropertyView> propertiesModel,
                                                                               boolean shouldHidePasswordProperties,
                                                                               EnumSet<PropertyType> propertiesToInclude) {
 
         List<AbstractValuedPropertyView> valuedProperties = deployedModule.getValuedProperties();
         if (shouldHidePasswordProperties) {
-            valuedProperties = hidePasswordProperties(valuedProperties, modulePropertiesModels);
+            valuedProperties = hidePasswordProperties(valuedProperties, propertiesModel);
         }
-        return PropertyVisitorsSequence.fromModelAndValuedProperties(modulePropertiesModels, valuedProperties, propertiesToInclude.contains(WITHOUT_MODEL));
+        return PropertyVisitorsSequence.fromModelAndValuedProperties(propertiesModel, valuedProperties, propertiesToInclude.contains(WITHOUT_MODEL));
     }
 
     public static PropertyValuationContext buildValuationContext(PropertyVisitorsSequence propertyVisitors,

@@ -26,9 +26,9 @@ import org.hesperides.core.presentation.io.platforms.InstancesModelOutput;
 import org.hesperides.core.presentation.io.platforms.ModulePlatformsOutput;
 import org.hesperides.core.presentation.io.platforms.PlatformIO;
 import org.hesperides.core.presentation.io.platforms.SearchResultOutput;
+import org.hesperides.core.presentation.io.platforms.properties.DetailedPropertiesPlatformOutput;
 import org.hesperides.core.presentation.io.platforms.properties.GlobalPropertyUsageOutput;
 import org.hesperides.core.presentation.io.platforms.properties.PropertiesIO;
-import org.hesperides.core.presentation.io.platforms.properties.PropertiesWithDetailsOutput;
 import org.hesperides.core.presentation.io.platforms.properties.diff.PropertiesDiffOutput;
 import org.hesperides.test.bdd.commons.CustomRestTemplate;
 import org.hesperides.test.bdd.commons.TestContext;
@@ -224,31 +224,16 @@ public class PlatformClient {
     }
 
     public void getProperties(PlatformIO platform, String propertiesPath, Long timestamp, String tryTo) {
-        getProperties(platform, propertiesPath, timestamp, false, tryTo);
-    }
-
-    private void getProperties(PlatformIO platform, String propertiesPath, Long timestamp, boolean withDetails, String tryTo) {
         String url = "/applications/{application_name}/platforms/{platform_name}/properties?path={properties_path}";
         if (timestamp != null) {
             url += "&timestamp=" + timestamp;
         }
-        Class responseType;
-        if (withDetails) {
-            url += "&with_details=" + withDetails;
-            responseType = PropertiesWithDetailsOutput.class;
-        } else {
-            responseType = PropertiesIO.class;
-        }
         restTemplate.getForEntity(
                 url,
-                getResponseType(tryTo, responseType),
+                getResponseType(tryTo, PropertiesIO.class),
                 platform.getApplicationName(),
                 platform.getPlatformName(),
                 propertiesPath);
-    }
-
-    public void getPropertiesWithDetails(PlatformIO platform, String propertiesPath) {
-        getProperties(platform, propertiesPath, null, true, null);
     }
 
     public void getPropertiesDiff(PlatformIO fromPlatform, String fromPropertiesPath, String fromInstance, PlatformIO toPlatform, String toPropertiesPath, String toInstance, boolean compareStoredValues, Long timestamp) {
@@ -290,6 +275,17 @@ public class PlatformClient {
                 "/applications/{application_name}/platforms/{platform_name}/restore",
                 null,
                 getResponseType(tryTo, PlatformIO.class),
+                platformInput.getApplicationName(),
+                platformInput.getPlatformName());
+    }
+
+    public void getDetailedProperties(PlatformIO platformInput, String propertiesPath) {
+        String url = "/applications/{application_name}/platforms/{platform_name}/detailed_properties";
+        if (propertiesPath != null) {
+            url += "?properties_path=" + propertiesPath;
+        }
+        restTemplate.getForEntity(url,
+                DetailedPropertiesPlatformOutput.class,
                 platformInput.getApplicationName(),
                 platformInput.getPlatformName());
     }

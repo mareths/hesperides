@@ -100,10 +100,10 @@ public class PropertyValuationContext {
         return propertyVisitors.removePropertiesByName(predefinedProperties.stream().map(ValuedPropertyView::getName).collect(Collectors.toSet()));
     }
 
-    public PropertyVisitorsSequence removeGlobalPropertiesThatAreNotInTheModel(PropertyVisitorsSequence propertyVisitors, List<AbstractPropertyView> modulePropertiesModels) {
+    public PropertyVisitorsSequence removeGlobalPropertiesThatAreNotInTheModel(PropertyVisitorsSequence propertyVisitors, List<AbstractPropertyView> propertiesModel) {
         return new PropertyVisitorsSequence(propertyVisitors.stream().filter(propertyVisitor -> {
             boolean isGlobal = globalProperties.stream().anyMatch(globalProperty -> globalProperty.getName().equals(propertyVisitor.getName()));
-            boolean isNotInTheModel = modulePropertiesModels.stream().noneMatch(moduleProperty -> moduleProperty.getName().equals(propertyVisitor.getName()));
+            boolean isNotInTheModel = propertiesModel.stream().noneMatch(moduleProperty -> moduleProperty.getName().equals(propertyVisitor.getName()));
             return !(isGlobal && isNotInTheModel);
         }).collect(Collectors.toList()));
     }

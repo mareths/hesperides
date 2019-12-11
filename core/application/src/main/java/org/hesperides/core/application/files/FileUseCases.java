@@ -188,12 +188,12 @@ public class FileUseCases {
                                                                    PlatformView platform,
                                                                    String modulePath,
                                                                    Module.Key moduleKey,
-                                                                   List<AbstractPropertyView> modulePropertiesModels,
+                                                                   List<AbstractPropertyView> propertiesModel,
                                                                    String instanceName,
                                                                    boolean shouldHidePasswordProperties) {
 
         PropertyVisitorsSequence preparedPropertyVisitors = buildPropertyVisitorsSequence(
-                platform, modulePath, moduleKey, modulePropertiesModels, instanceName, shouldHidePasswordProperties)
+                platform, modulePath, moduleKey, propertiesModel, instanceName, shouldHidePasswordProperties)
                 .removeMustachesInPropertyValues()
                 .passOverPropertyValuesToChildItems();
         Map<String, Object> scopes = propertiesToScopes(preparedPropertyVisitors);
@@ -203,7 +203,7 @@ public class FileUseCases {
     private static PropertyVisitorsSequence buildPropertyVisitorsSequence(PlatformView platform,
                                                                           String modulePath,
                                                                           Module.Key moduleKey,
-                                                                          List<AbstractPropertyView> modulePropertiesModels,
+                                                                          List<AbstractPropertyView> propertiesModel,
                                                                           String instanceName,
                                                                           boolean shouldHidePasswordProperties) {
 
@@ -211,7 +211,7 @@ public class FileUseCases {
         DeployedModuleView deployedModule = platform.getDeployedModule(modulePath, moduleKey);
 
         PropertyVisitorsSequence firstPropertyVisitorsSequence = PropertyValuationBuilder.buildFirstPropertyVisitorsSequence(
-                deployedModule, modulePropertiesModels, shouldHidePasswordProperties, propertiesToInclude);
+                deployedModule, propertiesModel, shouldHidePasswordProperties, propertiesToInclude);
 
         PropertyValuationContext valuationContext = PropertyValuationBuilder.buildValuationContext(
                 firstPropertyVisitorsSequence, deployedModule, platform, instanceName);

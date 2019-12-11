@@ -36,7 +36,7 @@ public class RandomPlatformViewGenerator {
         );
     }
 
-    static List<AbstractPropertyView> genModulePropertiesModels(int count) {
+    static List<AbstractPropertyView> genPropertiesModel(int count) {
         return IntStream.range(0, count)
                 .mapToObj(i -> genPropertyView())
                 .collect(Collectors.toList());
