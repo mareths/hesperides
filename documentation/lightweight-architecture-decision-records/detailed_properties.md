@@ -37,42 +37,35 @@ Le paramètre de requête `properties_path` est facultatif. S'il est fourni, on 
             },
             ...
         ],
-        deployed_modules: [
+        detailed_properties: [
             {
                 name,
-                version,
-                version_type,
-                module_path,
-                properties_path,
-                detailed_properties: [
+                stored_value,
+                final_value,
+                default_value,
+                is_required,
+                is_password,
+                pattern,
+                comment,
+                deployed_module_path,
+                defined_in_modules: [
+                    {
+                        name,
+                        version,
+                        version_type
+                    },
+                    ...
+                ],
+                referenced_global_properties: [
                     {
                         name,
                         stored_value,
-                        final_value,
-                        default_value,
-                        is_required,
-                        is_password,
-                        pattern,
-                        comment,
-                        referenced_global_properties: [
-                            {
-                                name,
-                                stored_value,
-                                final_value
-                            },
-                            ...
-                        ],
-                        referencing_modules: [
-                            {
-                                name,
-                                version,
-                                version_type
-                            },
-                            ...
-                        ],
-                        is_not_used,
+                        final_value
                     },
                     ...
-                ]
-            }
-        ];
+                ],
+                is_not_used,
+            },
+            ...
+        ]
+    }
