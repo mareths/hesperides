@@ -4,6 +4,8 @@ L'objectif de cette nouvelle ressource est de fournir la liste complète des pro
 * les propriétés globales de la plateforme
 * les propriétés de chaque module de la plateforme
 
+Son application directe sera de fournir côté frontend une modale permettant d'avoir une vue d'ensemble des usages des propriétés globales sur une plateforme.
+
 ## Contexte
 
 Un première implémentation a permis de récupérer en partie ces données mais avec les inconvénients suivants :

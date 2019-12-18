@@ -525,7 +525,7 @@ public class PlatformUseCases {
             throw new ForbiddenOperationException("Cleaning properties of a production platform is reserved to production role");
         }
         if (Platform.isGlobalPropertiesPath(propertiesPath)) {
-            throw new IllegalArgumentException("Cleaning only works on module properties, not global properties");
+            throw new IllegalArgumentException("Cleaning only works for module properties, not for global properties");
         }
 
         final DeployedModuleView deployedModule = platform.getDeployedModule(propertiesPath);
